@@ -1,0 +1,38 @@
+<!-- test.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ModulaJS Test</title>
+    <script src="./ModulaJS/core/core.js"></script>
+    <script src="./ModulaJS/modules/commands.js"></script>
+    <script src="./ModulaJS/modules/event_system.js"></script>
+    <script src="./ModulaJS/modules/test.js"></script>
+    <script src="./ModulaJS/modules/ui.js"></script>
+    <link href="./ModulaCSS/modula.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="cont">
+        <script>
+            Modula.ui.createIconButton("http://192.168.1.103/backend/resources/img/customer.png", "IconBtn", () => {
+                console.log("Icon button clicked");
+            });
+            Modula.ui.createInput({
+                id: "my_input",
+                appendTo: "#cont",
+                placeholder: "Enter email"
+            });
+
+            Modula.ui.createSelect([
+                { value: 10, label: "Top 10" },
+                { value: 20, label: "Top 20" }
+            ]);
+
+            Modula.ui.createToggleButton(() => { console.log("Toggle") });
+        </script>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>

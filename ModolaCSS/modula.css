@@ -1,0 +1,23 @@
+/*--------------------------------*/
+.modula-std-input {
+    width: 240px;
+    height: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    padding-left: 5px;
+}
+
+/*Select--------------------------*/
+.modula-std-select {
+    background-color: white;
+    width: 140px;
+    height: 26px;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/*--------------------------------*/

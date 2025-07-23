@@ -1,0 +1,116 @@
+/*--------------------------------*/
+.modula-std-button {
+    background-color: white;
+    min-height: 30px;
+    border: 1px solid black;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.modula-std-button:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+/*--------------------------------*/
+
+/*--------------------------------*/
+.modula-std-icon-button {
+    position: relative;
+    background-color: white;
+    width: 130px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    border: 1px solid black;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.modula-std-icon-button:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+.modula-std-icon-button img {
+    position: absolute;
+    left: 2px;
+    top: 0px;
+    width: 28px;
+}
+
+.modula-std-icon-button span {
+    position: absolute;
+    left: 32px;
+    top: 4px;
+}
+
+/*--------------------------------*/
+
+
+/*--------------------------------*/
+.modula-std-toggle-button-label {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+}
+
+.modula-std-toggle-button-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.modula-std-toggle-button-span {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.modula-std-toggle-button-span:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.modula-std-toggle-button-input:checked+.modula-std-toggle-button-span {
+    background-color: #2196F3;
+}
+
+.modula-std-toggle-button-input:focus+.modula-std-toggle-button-span {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+.modula-std-toggle-button-input:checked+.modula-std-toggle-button-span:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.modula-std-toggle-button-span {
+    border-radius: 34px;
+}
+
+.modula-std-toggle-button-span:before {
+    border-radius: 50%;
+}
+
+/*--------------------------------*/

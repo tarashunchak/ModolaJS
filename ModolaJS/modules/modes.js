@@ -1,0 +1,3 @@
+Modola.mode = {};
+
+Modola.setMode();

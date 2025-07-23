@@ -1,0 +1,20 @@
+.modula-std-table {
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: none;
+    width: 100%;
+}
+
+.modula-std-table-th {
+    background-color: #404852;
+    color: white;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.modula-std-table-td {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
