@@ -1,32 +1,44 @@
-(function loadModulaModules() {
-    const basePath = "http://192.168.1.103/backend/Modula/";
+(function loadModolaModules() {
+    const basePath = "http://192.168.1.103/backend/ModolaJS/";
     const modules = [
-        "ModulaJS/core/core.js",
-        "ModulaJS/modules/dom.js",
-        "ModulaJS/modules/components.js",
-        "ModulaJS/modules/commands.js",
-        "ModulaJS/modules/eventSystem.js",
-        "ModulaJS/modules/sessionData.js",
-        "ModulaJS/modules/temporaryData.js",
-        "ModulaJS/modules/traits.js",
-        "ModulaJS/modules/modal.js",
-        "ModulaJS/modules/test.js",
-        "ModulaJS/modules/stackedComponents.js",
-        "ModulaJS/modules/modules.js",
-        "ModulaJS/modules/mustBe.js",
-        "ModulaJS/modules/traitsLib.js",
-        "ModulaJS/modules/ui/ui.js",
-        "ModulaJS/modules/ui/buttons.js",
-        "ModulaJS/modules/ui/input.js",
-        "ModulaJS/modules/ui/select.js",
-        "ModulaJS/modules/ui/modal.js",
-        "ModulaJS/modules/ui/table.js",
+        "ModolaJS/core/core.js",
+        "ModolaJS/core/keywords.js",
+        "ModolaJS/modules/scopes/scopeStack.js",
+        "ModolaJS/modules/components/dom.js",
+        "ModolaJS/modules/components/components.js",
+        "ModolaJS/modules/commands/commands.js",
+        "ModolaJS/modules/events/eventSystem.js",
+        "ModolaJS/modules/sessionData.js",
+        "ModolaJS/modules/temporaryData.js",
+        "ModolaJS/modules/test.js",
+        "ModolaJS/modules/components/stackedComponents.js",
+        "ModolaJS/modules/modules.js",
+        "ModolaJS/modules/requirements/traits.js",
+        "ModolaJS/modules/requirements/mustBe.js",
+        "ModolaJS/modules/requirements/traitsLib.js",
+        "ModolaJS/modules/types/types.js",
+        "ModolaJS/modules/types/typeValidators.js",
+        "ModolaJS/modules/types/typeModifiers/typeModifiers.js",
+        "ModolaJS/modules/operators/operators.js",
+        "ModolaJS/modules/operators/operatorsLib/addition.js",
+        "ModolaJS/modules/operators/operatorsLib/subtraction.js",
+        "ModolaJS/modules/operators/operatorsLib/division.js",
+        "ModolaJS/modules/operators/operatorsLib/assignment.js",
+        "ModolaJS/modules/operators/operatorsEngine.js",
+        "ModolaJS/modules/references/reference.js",
+        "ModolaJS/modules/templates/templates.js",
+        "ModolaJS/modules/ui/ui.js",
+        "ModolaJS/modules/ui/buttons.js",
+        "ModolaJS/modules/ui/input.js",
+        "ModolaJS/modules/ui/select.js",
+        "ModolaJS/modules/ui/modal.js",
+        "ModolaJS/modules/ui/table.js",
     ];
 
     const styles = [
-        "ModulaCSS/modula.css",
-        "ModulaCSS/modula_table.css",
-        "ModulaCSS/modula_buttons.css"
+        "ModolaCSS/modula.css",
+        "ModolaCSS/modula_table.css",
+        "ModolaCSS/modula_buttons.css"
     ]
 
     modules.forEach(file => {

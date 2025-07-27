@@ -1,8 +1,8 @@
-Modola.defineLocal("tokenize", (input) => {
+Modola.defineLocal("core:tokenizeScript", (input) => {
     const tokens = [];
     let current = 0;
 
-    while (current < input.lenght) {
+    while (current < input.length) {
         let char = input[current];
 
         // Skipping "space"-s
@@ -49,9 +49,16 @@ Modola.defineLocal("tokenize", (input) => {
             continue;
         }
 
+        //other symbols
+        if ("{};+-*/=".includes(char)) {
+            tokens.push(char);
+            current++;
+            continue;
+        }
+
         throw new Error("Unknown symbol: " + char);
 
     }
-
+    Modola.tokens = tokens;
     return tokens;
 });

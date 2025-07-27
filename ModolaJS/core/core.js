@@ -1,7 +1,7 @@
 const Modola = {
     modules: {},
     state: {},
-
+    tokens: [],
     registerModule(name, module) {
         this.modules[name] = module;
         if (module.init) module.init(this);
@@ -19,5 +19,6 @@ const Modola = {
         return this.state[key];
     }
 };
+//Modola.killProgram = () => { Modola = null; };
 
 window.Modola = Modola;

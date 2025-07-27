@@ -87,13 +87,13 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.innerHTML = Modola.dom.el("p", {
                 text: `[Modola] "main" command should return "0".`
             }).innerHTML;
-            Modola = null;
+            //Modola = null;
         }
     } else {
         console.error('%c[Modola] "main" command is not defined. Define it to launch your app.', 'color: red; font-weight: bold');
         document.body.innerHTML = Modola.dom.el("p", {
             text: '[Modola]: main() is not defined. Define it to launch your app.'
         }).innerHTML;
-        Modola = null;
+        //Modola = null;
     }
 });

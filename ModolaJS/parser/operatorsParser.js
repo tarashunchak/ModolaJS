@@ -1,0 +1,3 @@
+Modola.defineLocal("core:parseOperatorsDeclarations", () => {
+
+});
