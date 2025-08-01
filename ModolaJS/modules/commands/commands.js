@@ -2,10 +2,12 @@ Modola.global = {};
 Modola.local = {};
 Modola.dev = {};
 
+Modola.globalTest = {};
+
 let modulesLocalsBuff = {};
 
-let isCallable = () => {
-
+let isCallable = (name) => {
+    return Boolean(Modola.global[name] || Modola.local[name]);
 };
 
 Modola.defineDev = (name, func, override = false) => {
@@ -58,8 +60,7 @@ Modola.defineLocal = (name, func, override = false) => {
 Modola.defineGlobal = (name, func, override = false) => {
     if (Modola.global[name] && name === "main" && override) {
         console.error('%c[Modola] "main" command already exist. You cannot override it.', 'color: red; font-weight: bold');
-        Modola = null;
-        return;
+        //Modola = null;
     }
     if (Modola.global[name] && name && !override) {
         console.warn(`[Modola] global command with name: ${name} already exist. Use override = true to replace it.`);
@@ -68,6 +69,44 @@ Modola.defineGlobal = (name, func, override = false) => {
         }).innerHTML;
     } else {
         Modola.global[name] = func;
+    }
+};
+
+Modola.defineGlobalNewTest = (obj, override = false) => {
+    if (!obj || !obj.name) return;
+
+    if (Modola.globalTest[obj.name] && obj.name === "main" && override) {
+        console.error('%c[Modola] "main" command already exist. You cannot override it.', 'color: red; font-weight: bold');
+        Modola.killProgram();
+    }
+
+    if (Modola.globalTest[obj.namela] && !override) {
+        console.warn(`[Modola] global command with name: ${name} already exist. Use override = true to replace it.`);
+        document.body.innerHTML = Modola.dom.el("p", {
+            text: `[Modola] global command with name: "${name}"  already exist. Use override = true to replace it.`
+        }).innerHTML;
+        Modola.killProgram();
+        return;
+    }
+
+    if (obj && typeof obj === "object") {
+        if (Modola.globalTest[obj.name] && !override) {
+            Modola.killProgram();
+            return;
+        } else {
+            Modola.globalTest[obj.name] = obj;
+        }
+    }
+};
+
+Modola.getGlobalElement = (name) => {
+    if (name && typeof name === "string") {
+        if (Modola.globalTest[Modola.checkIfExist(name)]) {
+            let el = Modola.globalTest[Modola.checkIfExist(name)];
+            return el;
+        }
+    } else {
+        Modola.killProgram();
     }
 };
 
@@ -87,13 +126,13 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.innerHTML = Modola.dom.el("p", {
                 text: `[Modola] "main" command should return "0".`
             }).innerHTML;
-            //Modola = null;
+            Modola.killProgram();
         }
     } else {
         console.error('%c[Modola] "main" command is not defined. Define it to launch your app.', 'color: red; font-weight: bold');
         document.body.innerHTML = Modola.dom.el("p", {
             text: '[Modola]: main() is not defined. Define it to launch your app.'
         }).innerHTML;
-        //Modola = null;
+        Modola.killProgram();
     }
 });

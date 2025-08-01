@@ -1,9 +1,9 @@
 Modola.events = {
     listeners: {},
-    onAnyEvent: {},
+    onAnyEvent: null,
 
-    /*eventName - name of event
-    handlerFunc - function or command name*/
+    /*---[Modola] eventName - name of event
+    handlerFunc - function or command name ---*/
     on(eventName, handlerFunc) {
         if (!this.listeners[eventName]) this.listeners[eventName] = [];
         if (typeof handlerFunc === "function") {
@@ -15,7 +15,9 @@ Modola.events = {
 
     emit(eventName, data = {}) {
         if (this.listeners[eventName]) {
-            this.onAnyEvent();
+            if (this.onAnyEvent) {
+                this.onAnyEvent();
+            }
             this.listeners[eventName].forEach(fn => { fn(data) });
         } else {
             console.error("[Modola] emited signal with no subscribers!");

@@ -1,17 +1,27 @@
-Modola.defineOperator("int", "-", (a, b) => {
-  console.log("operator+:int");
-  if (Modola.isInt(a) && Modola.isInt(b)) {
-    return a - b;
-  } else {
-    console.log(`[Modola] operator-(${typeof a}, ${typeof b}) is not defined`);
+
+Modola.defineOperator({
+  args: {
+    "a": { type: "float", default: undefined }
+  },
+  returnType: "int",
+  opName: "-",
+  body: (args) => {
+    return args["a"].value * -1;
   }
 });
 
-Modola.defineOperator("float", "-", (a, b) => {
-  console.log("operator+:float");
-  if (Modola.isFloat(a) && Modola.isFloat(b)) {
-    return a - b;
-  } else {
-    console.log(`[Modola] operator-(${typeof a}, ${typeof b}) is not defined`);
+Modola.defineOperator({
+  args: {
+    "a": { type: "float", default: undefined },
+    "b": { type: "int", default: undefined }
+  },
+  returnType: "int",
+  opName: "-",
+  body: (args) => {
+    return args["a"].value - args["b"].value;
   }
 });
+
+/*Modola.defineOperator(["float", "int"], "float", "-", (a, b) => {
+  return a.value - b.value;
+});*/

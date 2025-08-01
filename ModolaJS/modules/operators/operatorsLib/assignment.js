@@ -1,9 +1,11 @@
-Modola.defineOperator("int", "=", (a, b) => {
-  if (Modola.isInt(a) && Modola.isInt(b)) {
-    if (a !== undefined) {
-      a = b;
-    }
-  } else {
-    console.log(`[Modola] operator=(${typeof a}, ${typeof b}) is not defined`);
+Modola.defineOperator({
+  returnType: "float&",
+  opName: "=",
+  args: {
+    "a": { type: "float&" },
+    "b": { type: "int" },
+  },
+  body: (args) => {
+    return Modola.variables[args["a"].name].value = args["b"].value;
   }
 });
