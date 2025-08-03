@@ -1,4 +1,9 @@
-Modola.types = {
+Modola.types = {};
+Modola.typesDescription = {
+    void: {
+        default: undefined,
+        castableTo: undefined
+    },
     int: {
         default: 0,
         castableTo: [
@@ -39,6 +44,13 @@ Modola.types = {
             "array<char>"
         ]
     },
+    "string&": {
+        default: undefined,
+        castableTo: [
+            "string",
+            "array<char>"
+        ]
+    },
     char: {
         default: '',
         castableTo: [
@@ -63,3 +75,4 @@ Modola.types.float = (value) => {
 Modola.types.string = (value) => {
     return parseString(value);
 }
+

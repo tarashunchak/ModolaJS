@@ -6,6 +6,36 @@ Modola.defineOperator(["float", "float"], "float", "+", (a, b) => {
   return a.value + b.value;
 });*/
 
+/*global operator + (x: int, y: int) -> int {
+
+}
+
+global type MyClass class {
+  private first_name:= int @json:"first_name";
+  private last_name:= int @json:"last_name";
+
+  public constructor(fName: string, lName: string) {
+    this->first_name = fName;
+    this->last_name = lName;
+  }
+
+  public printPerson()->void{
+    print(`First name: ${this->first_name} 
+          Last name: ${this->last_name}`);
+  }
+}
+
+
+local type MyClassAl alias MyClass;
+
+global type MyEnum enum {
+
+}
+
+dev someVar: string:= MyClass.constructor();*/
+
+
+
 Modola.defineOperator({
   args: {
     "a": { type: "int", default: undefined },

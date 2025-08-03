@@ -12,7 +12,7 @@ Modola.defineVariable = (type, name, value = undefined) => {
         isLvalue: true
       };
 
-      Modola.pushToCurrScope(Modola.variables[fullName]);
+      //Modola.pushToCurrScope(Modola.variables[fullName]);
       console.log(`Variable placed in scope ${fullName}`);
     } else {
       Modola.killProgram();
@@ -28,7 +28,7 @@ Modola.defineTemporaryVariable = (value) => {
       value: value,
       isLvalue: false
     }
-    Modola.pushToCurrScope(temp);
+    //Modola.pushToCurrScope(temp);
     return temp;
   } else {
     Modola.killProgram();

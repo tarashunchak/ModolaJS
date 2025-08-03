@@ -2,3 +2,6 @@
 Modola.defineObject = (type, args) => {
   return Modola.classes[type].constructor(args);
 };
+
+
+

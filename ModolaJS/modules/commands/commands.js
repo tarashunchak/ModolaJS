@@ -121,6 +121,7 @@ Modola.deleteLocal = name => {
 document.addEventListener("DOMContentLoaded", () => {
     if (Modola.global["main"]) {
         console.log("Main is running");
+        //Modola.events.emit("core:tokenizeScript");
         if (Modola.global.main() !== 0) {
             console.error('%c[Modola] "main" command should  return "0"', 'color: red; font-weight: bold');
             document.body.innerHTML = Modola.dom.el("p", {

@@ -70,7 +70,7 @@ Modola.callOperator = (op, argsName) => {
     }
     let args = argsName.map(name => Modola.getVariable(name));
 
-    console.log(`Args value in operator callin: ${args[0].value}`);
+    //console.log(`Args value in operator callin: ${args[0].value}`);
 
     let operator = findOperator(op, args);
 
@@ -86,8 +86,10 @@ Modola.callOperator = (op, argsName) => {
 
                 const namedArgs = {};
                 operator.args.forEach((def, i) => namedArgs[def.name] = args[i]);
-                console.log("call operator ", op, namedArgs["a"].value);
-                return operator.body(namedArgs);
+                //console.log("call operator ", op, namedArgs["a"].value);
+                const opResult = operator.body(namedArgs);
+                if (opResult)
+                    return opResult.value ? opResult.value : opResult;
             }
         }
     } else

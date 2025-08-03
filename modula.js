@@ -4,7 +4,8 @@ before the program's main files are loaded. ---*/
 
 (async function loadModolaModules() {
     const currentScript = document.currentScript;
-    const basePath = currentScript.src.substring(0, currentScript.src.lastIndexOf("/") + 1);
+    //const basePath = currentScript.src.substring(0, currentScript.src.lastIndexOf("/") + 1);
+    const basePath = "http://192.168.1.103/backend/ModolaJS/";
 
     const modules = [
         "ModolaJS/core/core.js",
@@ -43,6 +44,7 @@ before the program's main files are loaded. ---*/
         "ModolaJS/modules/commands/commands.js",
         "ModolaJS/modules/oop/oopEngine.js",
         "ModolaJS/modules/oop/objectEngine.js",
+        "ModolaJS/parser/tokenizer.js",
         //"ModolaJS/modules/templates/templates.js",
         "ModolaJS/modules/functions/functionsEngine.js",
         "ModolaJS/modules/ui/ui.js",
@@ -50,7 +52,8 @@ before the program's main files are loaded. ---*/
         "ModolaJS/modules/ui/input.js",
         "ModolaJS/modules/ui/select.js",
         "ModolaJS/modules/ui/modal.js",
-        "ModolaJS/modules/ui/table.js"
+        "ModolaJS/modules/ui/table.js",
+
     ];
 
     const styles = [

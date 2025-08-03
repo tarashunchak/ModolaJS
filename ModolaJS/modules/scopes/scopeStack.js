@@ -16,14 +16,23 @@ Modola.enterScope = (scopeName) => {
 };
 
 Modola.pushToCurrScope = (arg) => {
-  if (!Modola.scopes[Modola.currentScopeBuff])
-    Modola.scopes[Modola.currentScopeBuff] = [];
+  const arrLength = Modola.scopes.length;
+  if (!Modola.scopes[arrLength - 1])
+    Modola.scopes[arrLength - 1] = [];
 
-  Modola.scopes[Modola.currentScopeBuff].push(arg);
+  Modola.scopes[arrLength - 1].push(arg);
 }
 
 Modola.exitScope = () => {
-  if (Modola.scopes.length > 1) {
+  const arrLength = Modola.scopes.length;
+  if (arrLength > 1) {
+    Modola.scopes[arrLength - 1].forEach(el => {
+      if (!el.isClass && el.onDestroy) {
+        Modola.events.emit(el.onDestroy);
+      } else if (el.isClass && el.destructor) {
+        el.destructor();
+      }
+    });
     Modola.scopes.pop();
     Modola.currentScopeBuff = Modola.scopes.map(name => name).join(":");
   }

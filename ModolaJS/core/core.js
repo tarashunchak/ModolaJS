@@ -42,4 +42,11 @@ Modola.killProgram = () => {
     window.Modola = null;
 };
 
+Modola.core = {};
+
+Modola.defineCore = (name, func) => {
+    Modola.core[name] = func;
+}
+
 window.Modola = Modola;
+

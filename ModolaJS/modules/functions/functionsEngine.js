@@ -1,6 +1,6 @@
 Modola.defineFunction = (funcObj) => {
   let args = funcObj.args || {};
-  let argNames = Object.keys(args);
+  let argNames = Object.keys(args) || undefined;
 
   return {
     type: "modolaFunc",
@@ -11,7 +11,7 @@ Modola.defineFunction = (funcObj) => {
       name: name,
       type: args[name].type,
       default: args[name]?.default || undefined
-    })),
+    })) || undefined,
     body: funcObj.body,
   }
 };

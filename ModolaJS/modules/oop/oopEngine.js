@@ -38,7 +38,7 @@ Modola.defineClass = (args /* object*/) => {
         else {
 
             /*---[Modola] `fields` arg should be a "object" type 
-            and contain at least "name" and "value" properties---*/
+            and contain at least "name" and "value" properties ---*/
             if (typeof fields !== "object" && typeof methods !== "object") {
                 console.log(`[Modola] unknown format for class definition`);
                 Modola.killProgram();
@@ -53,6 +53,7 @@ Modola.defineClass = (args /* object*/) => {
 
             Modola.classes[className] = {
                 /*---[Modola] `type` - is unique typename for this class ---*/
+                isClass: true,
                 extends: extend,
                 type: className,
                 meta: meta,

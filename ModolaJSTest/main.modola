@@ -1,0 +1,25 @@
+global x: int := 20;
+
+local y: int := 4010;
+local z: int& := x;
+
+global type States enum {
+
+};
+
+global type A class {
+
+};
+
+local type AAlias alias A;
+
+global type MyClass class (A) {
+    private name: int  @json("first_name");
+
+    @doc "MyClass constructor";
+        local const obj: MyClass  := constructor("someText");
+    doc@
+    public constructor(name: string := "defaultName") {
+        this->name = name;
+    }
+}

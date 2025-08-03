@@ -6,6 +6,6 @@ Modola.defineOperator({
     "b": { type: "int" },
   },
   body: (args) => {
-    return Modola.variables[args["a"].name].value = args["b"].value;
+    return Modola.getVariable(args["a"]).value = args["b"].value;
   }
 });
