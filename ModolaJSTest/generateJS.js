@@ -1,11 +1,19 @@
 Modola.defineCore("generateJS", async (AST) => {
   const lines = [];
-  console.log("AST TYPE : ", typeof AST);
+
   for (const node of AST) {
-    lines.push("\n");
     switch (node.kind) {
+      case "componentDec": {
+        const formated = Modola.jsGeneratorUtils.formatComponentDec(node);
+        lines.push(`Modola.ui.create${node.name}(${formated});`);
+        break;
+      }
+      case "unsafeBlock": {
+        lines.push(node.body);
+        break;
+      }
       case "variableDef": {
-        lines.push(`Modola.defineVariable("${node.type}", "${node.name}", ${node.value});`);
+        lines.push(`Modola.defineVariable("${node.type}", "${node.name}", ${node.value})`);
         break;
       }
       case "constDef": {
@@ -14,7 +22,7 @@ Modola.defineCore("generateJS", async (AST) => {
               scope: "${node.scope}",
               type: "${node.type}",
               value: ${node.value},
-            });`);
+            })`);
         } else if (node.scope === "local") {
           lines.push(`Modola.defineLocalConstant("${node.name}", {
               scope: "${node.scope}",
@@ -34,9 +42,9 @@ Modola.defineCore("generateJS", async (AST) => {
           className : "${node.class.header.name}",
           extend : "${node.class.header.extend}",
           scope: "${node.class.header.scope}",
-          fields : {\n${Modola.jsGeneratorUtils.formatFields(fields)}},
-          methods : {\n${Modola.jsGeneratorUtils.formatMethods(methods)}},
-          constructors: [\n${Modola.jsGeneratorUtils.formatConstructors(constructors)}],
+          fields : {\n${Modola.jsGeneratorUtils.formatFieldsDec(fields)}},
+          methods : {\n${Modola.jsGeneratorUtils.formatMethodsDec(methods)}},
+          constructors: [\n${Modola.jsGeneratorUtils.formatConstructorsDec(constructors)}],
           destructor: null,
         }
         `;
@@ -52,7 +60,7 @@ Modola.defineCore("generateJS", async (AST) => {
           scope: "${node.func.header.scope}",
           returnType: "${node.func.header.returnType}",
           args: {${Modola.jsGeneratorUtils.formatArgs(node.func.header.args)}},
-          body: {${body}},
+          body: {\n${body}},
         }`;
         lines.push(`Modola.defineFunction(${funcObjStr});`);
         break;

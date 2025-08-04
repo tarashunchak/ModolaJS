@@ -1,10 +1,11 @@
 let modulaStdClasses = [];
 modulaStdClasses["Button"] = "modula-std-button";
 modulaStdClasses["IconButton"] = "modula-std-icon-button";
-const MODULA_STD_ICON_BUTTON = "modula-std-icon-button";
-const MODULA_STD_TOGGLE_BUTTON_LABEL = "modula-std-toggle-button-label";
-const MODULA_STD_TOGGLE_BUTTON_INPUT = "modula-std-toggle-button-input";
-const MODULA_STD_TOGGLE_BUTTON_SPAN = "modula-std-toggle-button-span";
+const MODOLA_STD_BUTTON = "modula-std-button";
+const MODOLA_STD_ICON_BUTTON = "modula-std-icon-button";
+const MODOLA_STD_TOGGLE_BUTTON_LABEL = "modula-std-toggle-button-label";
+const MODOLA_STD_TOGGLE_BUTTON_INPUT = "modula-std-toggle-button-input";
+const MODOLA_STD_TOGGLE_BUTTON_SPAN = "modula-std-toggle-button-span";
 
 Modola.ui.createButton = (text, onClick = {}, config = {}) => {
     const btn = document.createElement("button");
@@ -19,7 +20,7 @@ Modola.ui.createButton = (text, onClick = {}, config = {}) => {
         Modola.events.emit(config.emitEvent);
     }
 
-    btn.classList.add(MODULA_STD_BUTTON);
+    btn.classList.add(MODOLA_STD_BUTTON);
 
     if (config.class) {
         const classes = config.class.split(" ");
@@ -41,7 +42,7 @@ Modola.ui.createButton = (text, onClick = {}, config = {}) => {
 Modola.ui.createIconButton = (path, text, onClick, config = {}) => {
     //
     const btn = document.createElement("button");
-    btn.classList.add(MODULA_STD_ICON_BUTTON);
+    btn.classList.add(MODOLA_STD_ICON_BUTTON);
     if (config.class) {
         const classes = config.class.split(" ");
         btn.classList.add(...classes);
@@ -80,9 +81,9 @@ Modola.ui.createToggleButton = (onClick, config = {}) => {
         btn.addEventListener("click", onClick);
     }
 
-    toggleLabel.classList.add(MODULA_STD_TOGGLE_BUTTON_LABEL);
-    toggleInput.classList.add(MODULA_STD_TOGGLE_BUTTON_INPUT);
-    toggleSpan.classList.add(MODULA_STD_TOGGLE_BUTTON_SPAN);
+    toggleLabel.classList.add(MODOLA_STD_TOGGLE_BUTTON_LABEL);
+    toggleInput.classList.add(MODOLA_STD_TOGGLE_BUTTON_INPUT);
+    toggleSpan.classList.add(MODOLA_STD_TOGGLE_BUTTON_SPAN);
 
     toggleLabel.appendChild(toggleInput);
     toggleLabel.appendChild(toggleSpan);

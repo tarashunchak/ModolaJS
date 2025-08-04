@@ -1,22 +1,29 @@
+/*--[Modola] code from ""./file1.modola"" ---*/
+Modola.ui.createButton("Button2", null, {
+    style : {
 
+    color : "green"
+  
+},
+  });
+Modola.defineGlobalConstant("x", {
+              scope: "global",
+              type: "int",
+              value: 500,
+            })
+;console.log(Modola.globalConstants["x"].value);
+Modola.ui.createButton("Add Customer", null, {
+    style : {
 
-
-
-/*--[Modola] code from "./file1.modola" ---*/
-
-
-Modola.defineVariable("string", "file1Var", hello world);
-
-
-Modola.defineVariable("int", "x", 500);
-
-
-
-
+    color : "white",
+backgroundColor : "red"
+  
+},
+  });
 Modola.defineClass(
         {
           className : "MyClass",
-          extend : "Parent",
+          extend : "null",
           scope: "global",
           fields : {
 ccc : {
@@ -29,9 +36,9 @@ ccc : {
 myMethod : {
             returnType: "float",
             args: {"ccb" : {
-              modifier: undefined
+              modifier: undefined,
               type: "string",
-              default: null
+              default: null,
               }},
             access: "private",
           }},
@@ -40,3 +47,11 @@ myMethod : {
           destructor: null,
         }
         );
+Modola.defineFunction({
+          name: "funcSome",
+          scope: "global",
+          returnType: "void",
+          args: {},
+          body: {
+},
+        });

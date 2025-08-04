@@ -60,7 +60,8 @@ as it does not always load these files before the program's main files are loade
         "ModolaJSTest/variablesParser.js",
         "ModolaJSTest/classParser.js",
         "ModolaJSTest/functionParser.js",
-        "ModolaJSTest/test.js",
+        "ModolaJSTest/componentParser.js",
+        "ModolaJSTest/parser.js",
         "ModolaJSTest/generateJS.js",
         "ModolaJSTest/PARSER_UTILS.js",
         "ModolaJSTest/GENERATOR_UTILS.js",
@@ -107,5 +108,9 @@ as it does not always load these files before the program's main files are loade
     } catch (err) {
         console.error(`[Modola Parser Error]: `, err);
     }
+
+    const script = document.createElement("script");
+    script.src = basePath + "/ModolaJSTest/project.js";
+    document.head.appendChild(script);
 })();
 

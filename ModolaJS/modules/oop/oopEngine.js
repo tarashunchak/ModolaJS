@@ -45,11 +45,11 @@ Modola.defineClass = (args /* object*/) => {
                 return;
             }
 
-            if (!isCorrectExtend(extend)) {
+            /*if (!isCorrectExtend(extend)) {
                 console.error(`[Modola] parent class for ${className} is not defined`);
                 Modola.killProgram();
                 return;
-            }
+            }*/
 
             Modola.classes[className] = {
                 /*---[Modola] `type` - is unique typename for this class ---*/

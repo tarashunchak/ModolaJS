@@ -63,7 +63,7 @@ Modola.tokenizeScript = (script) => {
 
         /*---[Modola Tokenizer] string tokens ---*/
         if (char === '"') {
-            let value = '';
+            let value = '"';
             current++;
             char = script[current];
             column++;
@@ -79,6 +79,7 @@ Modola.tokenizeScript = (script) => {
             if (char !== '"') throw new Error(`Unterminated string on line ${line}`);
             current++;
             column++;
+            value += '"';
             tokens.push({ type: 'string', value, position: { line, column } });
             continue;
         }

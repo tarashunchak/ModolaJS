@@ -12,3 +12,10 @@ Modola.parserUtils.isConstantDef = (tokens, i) => {
     && tokens[i + 3].value === ":";
 };
 
+Modola.parserUtils.isUnsafeBlock = (tokens, i) => {
+  return tokens[i].value === "unsafe" && tokens[i + 1].value === "{";
+};
+
+Modola.parserUtils.isComponentDef = (tokens, i) => {
+  return tokens[i].value === "component" && tokens[i + 2].value === "{";
+};

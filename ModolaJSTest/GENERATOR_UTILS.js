@@ -1,30 +1,38 @@
 Modola.jsGeneratorUtils = {};
 
+Modola.jsGeneratorUtils.formatStyle = (styleObj) => {
+  return `style : {\n
+    ${Object.entries(styleObj)
+      .map(([key, value]) => `${key} : ${value}`)
+      .join(",\n")}
+  \n}`;
+};
+
 Modola.jsGeneratorUtils.formatArgs = (args) => {
   return args.map(arg =>
     `"${arg.name}" : {
-              modifier: ${args.modifier}
+              modifier: ${args.modifier},
               type: "${arg.type}",
-              default: ${arg.defValue}
+              default: ${arg.defValue},
               }`).join(",\n");
 };
 
-Modola.jsGeneratorUtils.formatFunction = (node) => {
+Modola.jsGeneratorUtils.formatFunctionDec = (node) => {
   return;
 };
 
-Modola.jsGeneratorUtils.formatFields = (fields) => {
+Modola.jsGeneratorUtils.formatFieldsDec = (fields) => {
   return fields.map(field => {
     return `${field.name} : {
               type: "${field.type}",
               default: ${field.defValue},
-              json: "${field.jsonAn}",
+              json: ${field.jsonAn},
               access: "${field.access}",
             }`;
   }).join(",\n");
 };
 
-Modola.jsGeneratorUtils.formatMethods = (methods) => {
+Modola.jsGeneratorUtils.formatMethodsDec = (methods) => {
   return methods.map(method => {
     //const bodyLines = Modola.core.generateJS(method.body);
     //const bodyStr = bodyLines.join("\n");
@@ -37,11 +45,17 @@ Modola.jsGeneratorUtils.formatMethods = (methods) => {
   }).join(",\n");
 };
 
-Modola.jsGeneratorUtils.formatConstructors = (constructors) => {
+Modola.jsGeneratorUtils.formatConstructorsDec = (constructors) => {
   return constructors.map(ctor => {
     return `{
       access: "${ctor.access}",
       args: {${Modola.jsGeneratorUtils.formatArgs(ctor.args)}},
     }`
   }).join(",\n");
+};
+
+Modola.jsGeneratorUtils.formatComponentDec = (comp) => {
+  return `${comp.body.text}, null, {
+    ${Modola.jsGeneratorUtils.formatStyle(comp.body.style)},
+  }`;
 };
