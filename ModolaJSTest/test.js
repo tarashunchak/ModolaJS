@@ -13,69 +13,81 @@ const funcCallRegex = /^(\w+)\(([^)]*)\);$/;
 const funcCallArgsRegex = /^(.*)$/;
 */
 
-const fieldSpec = ["private", "public"];
-const endOfBlock = ["}", "};"];
+/*---[Modola] this function will need to be fixed, 
+as it does not always load these files before the program's main files are loaded. ---*/
 
-function parseFuncParams(tokens, i) {
-}
+Modola.defineCore("parseScript", async (pathURL) => {
+  const moduleFile = new URL(pathURL, Modola.core.mainFilePath);
+  const response = await fetch(moduleFile.href);
+  const script = await response.text();
 
-function parseScript(script) {
-    const tokens = Modola.core.tokenizeScript(script);
-    const result = [];
+  const tokens = Modola.tokenizeScript(script);
+  const result = [];
 
-    let i = 0;
-    while (i < tokens.length) {
-        if (Modola.keywords.modifiers.scopeModifiers.includes(tokens[i].value) && tokens[i + 1].value === "type" && tokens[i + 3].value === "class") {
-            console.log("parsing class definition");
-            const parsedClass = Modola.core.parseClassBlock(tokens, i);
-            result.push(parsedClass);
-            i = parsedClass.nextIndex;
+  Modola.core.isTypeDefining = (locTokens, i, type) =>
+    Modola.keywords.modifiers.scopeModifiers.includes(locTokens[i].value)
+    && locTokens[i + 1].value === "type" && locTokens[i + 3].value === type;
 
-        } else if (Modola.keywords.modifiers.scopeModifiers.includes(tokens[i].value) && tokens[i + 2].value === "(") {
-            console.log("parsing func definition");
-            const parsedFunc = Modola.core.parseFuncBlock(tokens, i);
-            result.push(parsedFunc);
-            i = parsedFunc.nextIndex;
+  let i = 0;
+  while (i < tokens.length) {
 
-        } else if (Modola.keywords.modifiers.scopeModifiers.includes(tokens[i].value) && tokens[i + 2].value === ":") {
-            console.log("parsing variable definition");
-            const parsedVariable = Modola.core.parseVariableDef(tokens, i);
-            result.push(parsedVariable);
-            i = parsedVariable.nextIndex;
-        } else {
-            //console.log("else in script parse");
-            i++;
+    if (tokens[i] === ';') i++;
+
+    console.log(`is : under i+3: i+3 = ${i + 3} and ${tokens[i + 3].value}`);
+    /*---[Modola Parser] parsing class type definition ---*/
+    if (Modola.core.isTypeDefining(tokens, i, "class")) {
+      const parsedClass = Modola.core.parseClassBlock(tokens, i);
+      result.push(parsedClass);
+      i = parsedClass.nextIndex;
+    }
+    /*---[Modola Parser] parsing enum type definition ---*/
+    else if (Modola.core.isTypeDefining(tokens, i, "enum")) {
+      const parsedEnum = Modola.core.parseEnumBlock(tokens, i);
+      result.push(parsedEnum);
+      i = parsedEnum.nextIndex;
+    }
+    /*---[Modola Parser] parsing function definition ---*/
+    else if (Modola.keywords.modifiers.scopeModifiers.includes(tokens[i].value) &&
+      tokens[i + 2].value === "(") {
+
+      const parsedFunc = Modola.core.parseFuncBlock(tokens, i);
+      result.push(parsedFunc);
+      i = parsedFunc.nextIndex;
+    }
+    /*---[Modola Parser] parsing constant definition ---*/
+    else if (Modola.parserUtils.isConstantDef(tokens, i)) {
+      console.log("parse constant handler i + 1 = ", tokens[i + 1].value);
+      const parsedConstant = Modola.core.parseConstantDef(tokens, i);
+      result.push(parsedConstant);
+      i = parsedConstant.nextIndex;
+    }
+    /*---[Modola Parser] parsing variables definition ---*/
+    else if (Modola.parserUtils.isVariableDef(tokens, i)) {
+      console.log("parse variable handler i + 1 = ", tokens[i + 1].value);
+      const parsedVariable = Modola.core.parseVariableDef(tokens, i);
+      result.push(parsedVariable);
+      i = parsedVariable.nextIndex;
+    }
+    /*---[Modola Parser] recursive parsing of imported .modola files ---*/
+    else if (tokens[i].value === "import" && tokens[i + 1].value === "{") {
+      const parsedImports = Modola.core.parseImportBlock(tokens, i);
+      result.push(parsedImports);
+      i = parsedImports.nextIndex;
+      if (parsedImports.imports) {
+        for (let index = 0; index < parsedImports.imports.length; index++) {
+          const res = await Modola.core.parseScript(parsedImports.imports[index]);
+          result.push({
+            kind: "importedScript",
+            from: parsedImports.imports[index],
+            body: res
+          });
         }
+      }
     }
-
-    return result;
-}
-
-// 🧪 Тест:
-const script = `
-    global x: int := 20;
-
-    local y: int := 4010;
-    local z: int := x;
-
-    global type States enum {
-
-    };
-
-    local type AAlias alias A;
-
-    global funcName(someVar: int)->void{
-        local ddd : float;
-        return ddd;
+    else {
+      i++;
     }
+  }
 
-    global type MyClass class {
-        private name: string := "defSome" json:"first_name";
-        public constructor(name: string := "defaultName") {
-            this->name = name;
-        };
-    };
-`;
-
-console.log("parseOOP");
-console.log(parseScript(script));
+  return result;
+});

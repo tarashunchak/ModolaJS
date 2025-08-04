@@ -55,8 +55,10 @@ Modola.keywords.modifiers = {
 };
 
 Modola.keywords.typeDefining = [
-  "type", "class", "alias", "extend"
+  "type", "enum", "class", "alias", "extend"
 ];
+
+Modola.keywords.endOfBlock = ["}", "};"];
 
 Modola.keywords.references = ["&"];
 

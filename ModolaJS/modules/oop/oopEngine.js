@@ -54,6 +54,7 @@ Modola.defineClass = (args /* object*/) => {
             Modola.classes[className] = {
                 /*---[Modola] `type` - is unique typename for this class ---*/
                 isClass: true,
+                scope: args.scope,
                 extends: extend,
                 type: className,
                 meta: meta,

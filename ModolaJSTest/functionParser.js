@@ -42,14 +42,20 @@ Modola.defineCore('parseFuncHeader', (tokens, i) => {
     if (tokens[i].value === ",") i++;
   }
 
-  i++;
-  console.log(`i before arrow ${i}`);
-  let returnType = null;
-  if (tokens[i].value === "->" && Modola.typesDescription[tokens[i + 1].value]) {
-    returnType = tokens[i + 1].value;
-  } else throw "Expect return type of function";
 
-  i += 2;
+  console.log(`i before arrow ${i}`);
+  i++;
+
+  let returnType = null;
+
+  if (tokens[i].value === "->" && Modola.typesDescription[tokens[i + 1].value]) {
+    console.log("success return type handling ", tokens[i + 1].value);
+    returnType = tokens[i + 1].value;
+    i += 2;
+  } else {
+    returnType = "void";
+  }
+
 
   return {
     kind: "funcHeader",
@@ -65,53 +71,80 @@ Modola.defineCore('parseFuncBlock', (tokens, i) => {
   const header = Modola.core.parseFuncHeader(tokens, i);
   i = header.nextIndex;
 
-  console.log(`i before { ${i}`);
+  console.log(`i before { ${i - 1}`);
   if (tokens[i++].value !== "{") throw "Expect  '{' after function header";
 
   const body = [];
+  let returnValues = null;
   let braceCount = 1;
 
-  let currentDoc = null;
-
+  let old_i = 0;
   while (i < tokens.length && braceCount > 0) {
+    if (i === old_i) {
+      console.log("i === old_i", i);
+      break;
+    }
+    console.log("i in this iteration: ", i);
     let token = tokens[i].value;
 
-    if (token === "{") braceCount++;
-    if (endOfBlock.includes(token)) braceCount--;
-
-    if (token === "@doc") {
-      currentDoc = token.replace('@doc', '').trim().replace(/^"|"$/g, '');
+    if (token === ";") {
       i++;
       continue;
     }
 
-    if (token === "doc@") {
-      currentDoc = null;
+    if (token === "{") {
+      braceCount++;
       i++;
       continue;
     }
 
-    let variable = null;
-    if (Modola.keywords.modifiers.scopeModifiers.includes(tokens[i].value) ? tokens[i++].value : ("local" && Modola.typesDescription[tokens[i].value])) {
-      variable = Modola.core.parseVariableDef(tokens, i);
+    if (Modola.keywords.endOfBlock.includes(token)) {
+      braceCount--;
+      i++;
+      continue;
+    }
+
+    if (Modola.parserUtils.isVariableDef(tokens, i)) {
+      const variable = Modola.core.parseVariableDef(tokens, i);
       if (variable) {
-        if (currentDoc) {
-          variable.doc = currentDoc;
-          currentDoc = null
-        }
-        i = variable.nextIndex;
         body.push(variable);
+        i = variable.nextIndex;
+      } else {
         i++;
-        continue;
       }
+      continue;
+    } else if (Modola.parserUtils.isConstantDef(tokens, i)) {
+      const constant = Modola.core.parseConstantDef(tokens, i);
+      if (constant) {
+        body.push(constant);
+        i = constant.nextIndex;
+      } else {
+        i++;
+      }
+      continue;
     }
+
+    if (tokens[i].value === "return") {
+      console.log("return on i ", i);
+      if (tokens[i + 2].value !== ";") {
+        console.log('cheking return value');
+        i++;
+      } else {
+        returnValues = tokens[i + 1].value;
+        i += 2;
+      }
+      continue;
+    };
+
+    i++;
   }
 
   return {
-    kind: "functionDef",
+    kind: "funcDef",
     func: {
       header,
-      body
+      body,
+      returnValues
     },
     nextIndex: i
   }

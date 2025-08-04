@@ -5,14 +5,20 @@ Modola.defineFunction = (funcObj) => {
   return {
     type: "modolaFunc",
     returnType: funcObj.returnType,
-    funcName: funcObj.name,
-    name: Modola.makeScopeName(funcObj.name),
+    name: funcObj.name,
+    //name: Modola.makeScopeName(funcObj.name),
+    scope: funcObj.scope,
     args: argNames.map(name => ({
       name: name,
       type: args[name].type,
       default: args[name]?.default || undefined
     })) || undefined,
-    body: funcObj.body,
+    body: (passedArgs = {}) => {
+      Modola.enterScope(funcObj.name);
+      const result = funcObj.body(passedArgs);
+      Modola.exitScope();
+      return result;
+    },
   }
 };
 

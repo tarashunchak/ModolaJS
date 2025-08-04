@@ -18,7 +18,7 @@ Modola.defineCore("parseClassBlock", (tokens, i) => {
 
   while (i < tokens.length && braceCount > 0) {
     if (tokens[i].value === "{") braceCount++;
-    if (endOfBlock.includes(tokens[i].value)) braceCount--;
+    if (Modola.keywords.endOfBlock.includes(tokens[i].value)) braceCount--;
 
     if (Modola.keywords.modifiers.fieldsAndMethods.includes(tokens[i].value) && tokens[i + 2].value === ":") {
       const field = Modola.core.parseClassField(tokens, i);
@@ -64,7 +64,8 @@ Modola.defineCore("parseClassHeader", (tokens, i) => {
   let extend = null;
   if (endOfDef === "(") {
     extend = tokens[i++].value;
-    if (!extend || tokens[i++].value === ")") throw "Incorrect inheritance syntax";
+    if (!extend || extend === ")") throw "Incorrect inheritance syntax";
+    i++;
   }
 
   return {
@@ -123,15 +124,20 @@ Modola.defineCore("parseClassMethod", (tokens, i) => {
     let arg = Modola.core.parseFuncArgs(tokens, i);
     args.push(arg);
     i = arg.nextIndex;
+
+    if (tokens[i].value === ",") i++;
   }
 
+  i++;
+
   let returnType = null;
-  if (tokens[i].value === "->" && Modola.typesDescription[tokens[i + 1].value]) {
+  if (tokens[i].value === "->" && Modola.typesDescription[tokens[i + 1].value] && name !== "constructor") {
     returnType = tokens[i + 1].value;
   } else if (name === "constructor") {
     returnType = "void";
   } else {
-    throw "Expect return type of function";
+    console.log("i in return type of method: ", i);
+    throw "Expect return type of class method";
   }
 
   const body = [];
@@ -139,7 +145,7 @@ Modola.defineCore("parseClassMethod", (tokens, i) => {
   console.log("parseClassContents");
 
   return {
-    kind: "classMethodDef",
+    kind: "classMethod",
     access,
     returnType,
     name,

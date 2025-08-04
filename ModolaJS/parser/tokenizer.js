@@ -1,10 +1,10 @@
-Modola.defineCore("tokenizeScript", (script) => {
+Modola.tokenizeScript = (script) => {
     const tokens = [];
     let current = 0;
     let line = 1;
     let column = 0;
 
-    const KEYWORDS = ['global', 'local', 'dev', 'const', 'type', 'class', 'enum', 'alias', 'public', 'private', 'return'];
+    const KEYWORDS = ['global', 'local', 'dev', 'const', 'type', 'class', 'enum', 'alias', 'public', 'private', 'return', 'import'];
     const MULTICHAR_OPERATORS = Object.keys(Modola.keywords.operators);
     const SINGLECHAR_OPERATORS = "=+-*/:;{}()[],.";
 
@@ -128,4 +128,4 @@ Modola.defineCore("tokenizeScript", (script) => {
     Modola.tokens = tokens;
     console.log(tokens);
     return tokens;
-});
+};
