@@ -34,8 +34,16 @@ Modola.defineCore("parseScript", async (pathURL) => {
 
     if (tokens[i] === ';') i++;
 
+    if (tokens[i].type === "unsafeBlock") {
+      const unsafeBlock = {
+        kind: "unsafeBlock",
+        value: tokens[i].value
+      };
+      result.push(unsafeBlock);
+      i++;
+    }
     /*---[Modola Parser] parsing class type definition ---*/
-    if (Modola.core.isTypeDefining(tokens, i, "class")) {
+    else if (Modola.core.isTypeDefining(tokens, i, "class")) {
       const parsedClass = Modola.core.parseClassBlock(tokens, i);
       result.push(parsedClass);
       i = parsedClass.nextIndex;
@@ -45,23 +53,6 @@ Modola.defineCore("parseScript", async (pathURL) => {
       const parsedEnum = Modola.core.parseEnumBlock(tokens, i);
       result.push(parsedEnum);
       i = parsedEnum.nextIndex;
-    }
-    else if (Modola.parserUtils.isUnsafeBlock(tokens, i)) {
-      const unsafeBlock = {
-        kind: "unsafeBlock",
-        body: []
-      };
-      let lines = ";";
-      i += 2;
-      while (tokens[i].value !== "}") {
-        lines += tokens[i].value;
-        if (tokens[i].value === ";") {
-          unsafeBlock.body.push(lines);
-          lines = '';
-        }
-        i++;
-      }
-      result.push(unsafeBlock);
     }
     /*---[Modola Parser] parsing function definition ---*/
     else if (Modola.keywords.modifiers.scopeModifiers.includes(tokens[i].value) &&
@@ -88,6 +79,25 @@ Modola.defineCore("parseScript", async (pathURL) => {
       const parsedComponent = Modola.core.parseComponentDec(tokens, i);
       result.push(parsedComponent);
       i = parsedComponent.nextIndex;
+    }
+    /*---[Modola Parser] parsing operator declaration ---*/
+    else if (Modola.parserUtils.isOperatorDec(tokens, i)) {
+      const parsedOpDec = Modola.core.parseOperatorDec(tokens, i);
+      result.push(parsedOpDec);
+      i = parsedOpDec.nextIndex;
+    }
+    /*---[Modola Parser] parsing emit ---*/
+    else if (Modola.parserUtils.isEmit(tokens, i)) {
+      const parsedEmit = Modola.core.parseEmit(tokens, i);
+      result.push(parsedEmit);
+      i = parsedEmit.nextIndex;
+    }
+    /*---[Modola Parser] parsing expression ---*/
+    else if (Modola.parserUtils.isExpressionStart(tokens[i])) {
+      console.warn("expression parsing");
+      const parsedExpression = Modola.core.parseExpression(tokens, i);
+      result.push(parsedExpression);
+      i = parsedExpression.nextIndex;
     }
     /*---[Modola Parser] recursive parsing of imported .modola files ---*/
     else if (tokens[i].value === "import" && tokens[i + 1].value === "{") {

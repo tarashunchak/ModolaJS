@@ -48,15 +48,18 @@ Modola.typesDescription = {
         default: undefined,
         castableTo: [
             "string",
-            "array<char>"
         ]
     },
     char: {
         default: '',
         castableTo: [
             "int",
-            "string"
+            "string",
         ]
+    },
+    "float[]": {
+        default: [],
+        castableTo: null
     }
 };
 

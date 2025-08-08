@@ -56,13 +56,14 @@ function isSuitableParamTypes(func, params) {
 };
 
 Modola.callFunction = (funcName, params = []) => {
-  let func;
-  if (func = Modola.getGlobalElement(funcName)) {
+  const func = Modola.getGlobalElement(funcName);
+  func.body();
+  /*if () {
     if (isSuitableParamTypes(func, params)) {
       return func.body(...params);
     } else {
       Modola.killProgram();
       return;
     }
-  }
+  }*/
 };

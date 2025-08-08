@@ -1,0 +1,178 @@
+#side-menu-div {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 250px;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    background-color: #001F42;
+    font-family: Impact, Lato, Arial, Consolas;
+}
+
+#side-menu-logo {
+    margin: 0px;
+    margin-top: 5px;
+    width: 240px;
+}
+
+#side-menu-profile-div {
+    margin-top: 10px;
+    padding: 0px;
+    padding-left: 5px;
+}
+
+#side-menu-profile-div:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#side-menu-profile-img {
+    width: 60px;
+}
+
+#side-menu-search-div {
+    position: relative;
+    margin-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 34px;
+    border: none;
+}
+
+#side-menu-search-input {
+    width: 85%;
+    height: 100%;
+    border: none;
+    color: white;
+    padding-left: 4px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#side-menu-search-btn {
+    position: absolute;
+    top: 0px;
+    width: 15%;
+    height: 100%;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#side-menu-search-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#empl-full-name {
+    position: relative;
+    width: 250px;
+    color: white;
+    font-size: 20px;
+    text-align: left;
+}
+
+#side-menu-btns-nav {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 5%;
+}
+
+#side-menu-btns-ul {
+    margin: 5%;
+    padding: 0px;
+    position: relative;
+    width: 90%;
+    height: 100%;
+}
+
+.side-menu-btns-li {
+    position: absolute;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.side-menu-btns-a {
+    position: absolute;
+    left: 0px;
+    border: none;
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+    width: 100%;
+    height: 30px;
+}
+
+.side-menu-btns-a:hover {
+    background-color: rgba(87, 91, 129, 0.4);
+}
+
+#dashboard-page-li {
+    top: 0px;
+}
+
+#customers-page-li {
+    top: 35px;
+}
+
+#employees-page-li {
+    top: 70px;
+}
+
+#tariffs-page-li {
+    top: 105px;
+}
+
+#requests-page-li {
+    top: 140px;
+}
+
+#chats-page-li {
+    top: 175px;
+}
+
+#reports-page-li {
+    top: 210px;
+}
+
+#profile-page-li {
+    top: 245px;
+}
+
+#log-out-btn-li {
+    top: 280px;
+}
+
+#log-out-btn-a {
+    background-color: rgba(174, 62, 62, 1);
+    color: white;
+    text-align: center;
+    padding: 0px;
+    width: 100%;
+}
+
+#log-out-btn-a:hover {
+    background-color: rgba(87, 91, 129, 1);
+}
+
+.active {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.inactive {
+    background-color: none;
+}
+
+#customers-dropdown-i {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}

@@ -9,11 +9,18 @@ Modola.defineCore("generateJS", async (AST) => {
         break;
       }
       case "unsafeBlock": {
-        lines.push(node.body);
+        lines.push(node.value);
         break;
       }
       case "variableDef": {
-        lines.push(`Modola.defineVariable("${node.type}", "${node.name}", ${node.value})`);
+        if (typeof node.value !== "object") {
+          lines.push(`Modola.defineVariable("${node.type}", "${node.name}", ${node.value})`);
+        } else if (node.type === "UI" && node.value.type === "UI") {
+          if (node.scope === "global")
+            lines.push(`Modola.defineGlobalComponent("${node.type}", "${node.name}", Modola.ui.create${node.value.name}(${Modola.jsGeneratorUtils.formatComponentDec(node.value)}))`);
+          else if (node.scope === "local")
+            lines.push(`Modola.defineLocalComponent("${node.type}", "${node.name}", Modola.ui.create${node.value.name}(${Modola.jsGeneratorUtils.formatComponentDec(node.value)}))`);
+        }
         break;
       }
       case "constDef": {
@@ -22,12 +29,14 @@ Modola.defineCore("generateJS", async (AST) => {
               scope: "${node.scope}",
               type: "${node.type}",
               value: ${node.value},
+              isConst: true,
             })`);
         } else if (node.scope === "local") {
           lines.push(`Modola.defineLocalConstant("${node.name}", {
               scope: "${node.scope}",
               type: ${node.type},
               value: ${node.value},
+              isConst: true,
             });`);
         }
         break;
@@ -63,6 +72,11 @@ Modola.defineCore("generateJS", async (AST) => {
           body: {\n${body}},
         }`;
         lines.push(`Modola.defineFunction(${funcObjStr});`);
+        break;
+      }
+      case "operatorDec": {
+        const operator = Modola.jsGeneratorUtils.formatOperatorDec(node);
+        lines.push(`Modola.defineOperator(${operator});`);
         break;
       }
       case "importedScript": {

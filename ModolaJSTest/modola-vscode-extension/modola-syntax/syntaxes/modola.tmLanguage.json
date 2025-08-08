@@ -1,0 +1,55 @@
+{
+  "name": "Modola",
+  "scopeName": "source.modola",
+  "fileTypes": ["modola"],
+  "patterns": [
+    {
+      "name": "comment.line.double-slash.modola",
+      "match": "//.*$"
+    },
+    {
+      "name": "comment.block.modola",
+      "begin": "/\\*",
+      "end": "\\*/"
+    },
+    {
+      "name": "string.quoted.double.modola",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "match": "\\\\.",
+          "name": "constant.character.escape.modola"
+        }
+      ]
+    },
+    {
+      "name": "constant.numeric.modola",
+      "match": "\\b\\d+(\\.\\d+)?\\b"
+    },
+    {
+      "name": "keyword.control.modola",
+      "match": "\\b(global|local|dev|unsafe|type|enum|class|alias|func|return|if|else|while|for|break|continue)\\b"
+    },
+    {
+      "name": "storage.type.modola",
+      "match": "\\b(int|float|bool|string|void|UI|ref|component)\\b"
+    },
+    {
+      "name": "constant.language.modola",
+      "match": "\\b(true|false|null)\\b"
+    },
+    {
+      "name": "keyword.operator.modola",
+      "match": "(\\+|\\-|\\*|\\/|%|==|!=|<=|>=|<|>|=|:=|\\+=|\\-=|\\*=|\\/=|&&|\\|\\||!|\\+\\+|\\-\\-|->)"
+    },
+    {
+      "name": "keyword.access-spec.modola",
+      "match": "\\b(public|private)\\b"
+    },
+    {
+      "name": "punctuation.separator.modola",
+      "match": "[,;{}()]"
+    }
+  ]
+}

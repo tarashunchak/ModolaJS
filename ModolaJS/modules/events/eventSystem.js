@@ -14,13 +14,14 @@ Modola.events = {
     },
 
     emit(eventName, data = {}) {
+        console.log("Emited: ", eventName);
         if (this.listeners[eventName]) {
             if (this.onAnyEvent) {
                 this.onAnyEvent();
             }
             this.listeners[eventName].forEach(fn => { fn(data) });
         } else {
-            console.error("[Modola] emited signal with no subscribers!");
+            console.warn("[Modola Core] emited signal with no subscribers!");
         }
     },
 
@@ -31,7 +32,7 @@ Modola.events = {
     onAny(func, override = false) {
         if (typeof func === "function") {
             if (this.onAnyEvent && !override)
-                console.warn(`[Modola] "onAny" event handler is exits. Use verride = true to replace it.`);
+                console.warn(`[Modola Core] "onAny" event handler is exits. Use verride = true to replace it.`);
             else
                 this.onAnyEvent = func;
         }

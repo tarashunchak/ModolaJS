@@ -5,6 +5,11 @@
 ) ---*/
 Modola.defineCore('parseFuncArgs', (tokens, i) => {
   let name = tokens[i++].value;
+  let modifier = null;
+  if (name === "const") {
+    modifier = name;
+    name = tokens[i++].value;
+  }
   if (tokens[i++].value !== ":")
     throw "Expected ':' after argument name";
   let type = tokens[i++].value;
@@ -17,6 +22,7 @@ Modola.defineCore('parseFuncArgs', (tokens, i) => {
 
   return {
     kind: "funcArg",
+    modifier,
     name,
     type,
     defValue,

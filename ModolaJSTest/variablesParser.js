@@ -13,7 +13,14 @@ Modola.defineCore("parseVariableDef", (tokens, i) => {
   let value = null;
 
   if (tokens[i++].value === ":=") {
-    value = tokens[i++].value;
+    if (tokens[i].value === "component") {
+      value = Modola.core.parseComponentDec(tokens, i);
+      i = value.nextIndex;
+    } else if (Modola.parserUtils.isExpressionStart(tokens[i])) {
+      value = Modola.core.parseExpression(tokens, i);
+    } else {
+      value = tokens[i++].value;
+    };
   }
 
   if (tokens[i++].value !== ";")

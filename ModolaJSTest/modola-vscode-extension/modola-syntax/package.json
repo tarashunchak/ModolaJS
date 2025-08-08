@@ -1,0 +1,28 @@
+{
+  "name": "modola-syntax",
+  "displayName": "Modola Syntax",
+  "description": "Basic syntax highlighting for Modola language",
+  "version": "0.0.1",
+  "publisher": "modola",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "modola",
+        "aliases": ["Modola"],
+        "extensions": [".modola"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "modola",
+        "scopeName": "source.modola",
+        "path": "./syntaxes/modola.tmLanguage.json"
+      }
+    ]
+  }
+}

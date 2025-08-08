@@ -1,22 +1,23 @@
 /*--------------------------------*/
-.modula-std-button {
+.modola-std-button {
     background-color: white;
     min-height: 30px;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.3);
     color: black;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 16px;
     border-radius: 5px;
+    margin: 3px;
 }
 
-.modula-std-button:hover {
-    background-color: rgb(225, 225, 225);
+.modola-std-button:hover {
+    background-color: rgb(245, 245, 245);
 }
 
 /*--------------------------------*/
 
 /*--------------------------------*/
-.modula-std-icon-button {
+.modola-std-icon-button {
     position: relative;
     background-color: white;
     width: 130px;
@@ -30,18 +31,18 @@
     border-radius: 5px;
 }
 
-.modula-std-icon-button:hover {
+.modola-std-icon-button:hover {
     background-color: rgb(225, 225, 225);
 }
 
-.modula-std-icon-button img {
+.modola-std-icon-button img {
     position: absolute;
     left: 2px;
     top: 0px;
     width: 28px;
 }
 
-.modula-std-icon-button span {
+.modola-std-icon-button span {
     position: absolute;
     left: 32px;
     top: 4px;
@@ -51,20 +52,20 @@
 
 
 /*--------------------------------*/
-.modula-std-toggle-button-label {
+.modola-std-toggle-button-label {
     position: relative;
     display: inline-block;
     width: 40px;
     height: 24px;
 }
 
-.modula-std-toggle-button-input {
+.modola-std-toggle-button-input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.modula-std-toggle-button-span {
+.modola-std-toggle-button-span {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -77,7 +78,7 @@
     border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.modula-std-toggle-button-span:before {
+.modola-std-toggle-button-span:before {
     position: absolute;
     content: "";
     height: 18px;
@@ -90,26 +91,26 @@
     transition: .4s;
 }
 
-.modula-std-toggle-button-input:checked+.modula-std-toggle-button-span {
+.modola-std-toggle-button-input:checked+.modola-std-toggle-button-span {
     background-color: #2196F3;
 }
 
-.modula-std-toggle-button-input:focus+.modula-std-toggle-button-span {
+.modola-std-toggle-button-input:focus+.modola-std-toggle-button-span {
     box-shadow: 0 0 1px #2196F3;
 }
 
-.modula-std-toggle-button-input:checked+.modula-std-toggle-button-span:before {
+.modola-std-toggle-button-input:checked+.modola-std-toggle-button-span:before {
     -webkit-transform: translateX(18px);
     -ms-transform: translateX(18px);
     transform: translateX(18px);
 }
 
 /* Rounded sliders */
-.modula-std-toggle-button-span {
+.modola-std-toggle-button-span {
     border-radius: 34px;
 }
 
-.modula-std-toggle-button-span:before {
+.modola-std-toggle-button-span:before {
     border-radius: 50%;
 }
 

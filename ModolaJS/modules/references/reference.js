@@ -29,7 +29,7 @@ Modola.checkIfExist = (sourceName) => {
         if (Modola.variables[currScope]) {
             console.log(currScope);
             return currScope;
-        } else if (Modola.constants[currScope]) {
+        } else if (Modola.globalConstants[currScope]) {
             console.log(currScope);
             return currScope;
         } else if (Modola.globalTest[currScope]) {

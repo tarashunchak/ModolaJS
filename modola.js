@@ -44,6 +44,7 @@ as it does not always load these files before the program's main files are loade
         "ModolaJS/modules/commands/commands.js",
         "ModolaJS/modules/oop/oopEngine.js",
         "ModolaJS/modules/oop/objectEngine.js",
+        "ModolaJS/modules/json/json.js",
         "ModolaJS/parser/tokenizer.js",
         //"ModolaJS/modules/templates/templates.js",
         "ModolaJS/modules/functions/functionsEngine.js",
@@ -53,6 +54,8 @@ as it does not always load these files before the program's main files are loade
         "ModolaJS/modules/ui/select.js",
         "ModolaJS/modules/ui/modal.js",
         "ModolaJS/modules/ui/table.js",
+        "ModolaJS/modules/ui/widget.js",
+        "ModolaJS/modules/ui/dialog.js",
 
         //
         "ModolaJSTest/importParser.js",
@@ -61,6 +64,9 @@ as it does not always load these files before the program's main files are loade
         "ModolaJSTest/classParser.js",
         "ModolaJSTest/functionParser.js",
         "ModolaJSTest/componentParser.js",
+        "ModolaJSTest/operatorDecParser.js",
+        "ModolaJSTest/expressionParser.js",
+        "ModolaJSTest/eventSysParser.js",
         "ModolaJSTest/parser.js",
         "ModolaJSTest/generateJS.js",
         "ModolaJSTest/PARSER_UTILS.js",
@@ -68,9 +74,10 @@ as it does not always load these files before the program's main files are loade
     ];
 
     const styles = [
-        "ModolaCSS/modula.css",
-        "ModolaCSS/modula_table.css",
-        "ModolaCSS/modula_buttons.css"
+        "ModolaCSS/modola_widgets.css",
+        "ModolaCSS/modola_table.css",
+        "ModolaCSS/modola_buttons.css",
+        "ModolaCSS/modola_input.css",
     ];
 
     function loadScript(src) {
@@ -105,10 +112,10 @@ as it does not always load these files before the program's main files are loade
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ code: await Modola.core.generateJS(await Modola.core.parseScript(Modola.core.mainFilePath)) })
         });
+
     } catch (err) {
         console.error(`[Modola Parser Error]: `, err);
     }
-
     const script = document.createElement("script");
     script.src = basePath + "/ModolaJSTest/project.js";
     document.head.appendChild(script);

@@ -5,13 +5,28 @@ Modola.jsGeneratorUtils.formatStyle = (styleObj) => {
     ${Object.entries(styleObj)
       .map(([key, value]) => `${key} : ${value}`)
       .join(",\n")}
-  \n}`;
+  \n},`;
+};
+
+Modola.jsGeneratorUtils.formatJSObject = (obj) => {
+  return `{
+  ${Object.entries(obj).map(([key, value]) => {
+    if (typeof value === "object") {
+      return `${key}:  ${Modola.jsGeneratorUtils.formatJSObject(value)}`
+    } else if (value.style) {
+      return Modola.jsGeneratorUtils.formatStyle(value);
+    } else {
+      return `${key} : ${value}`
+    }
+  }
+  ).join(",\n")}
+  }`
 };
 
 Modola.jsGeneratorUtils.formatArgs = (args) => {
   return args.map(arg =>
     `"${arg.name}" : {
-              modifier: ${args.modifier},
+              modifier: "${arg.modifier}",
               type: "${arg.type}",
               default: ${arg.defValue},
               }`).join(",\n");
@@ -55,7 +70,16 @@ Modola.jsGeneratorUtils.formatConstructorsDec = (constructors) => {
 };
 
 Modola.jsGeneratorUtils.formatComponentDec = (comp) => {
-  return `${comp.body.text}, null, {
-    ${Modola.jsGeneratorUtils.formatStyle(comp.body.style)},
-  }`;
+  return `${comp.body.text}, null, 
+    ${Modola.jsGeneratorUtils.formatJSObject(comp.body)}
+  `;
+};
+
+Modola.jsGeneratorUtils.formatOperatorDec = (op) => {
+  return `{
+    args: {${Modola.jsGeneratorUtils.formatArgs(op.args)} },
+    returnType: ${op.returnName},
+    opName: "${op.opName}",
+      body: { },
+  } `;
 };

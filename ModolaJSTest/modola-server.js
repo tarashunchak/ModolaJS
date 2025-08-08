@@ -12,8 +12,8 @@ app.post("/save", (req, res) => {
 
     function flattenDeep(arr) {
         return arr.reduce((acc, val) =>
-        Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val)
-        , []);
+            Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val)
+            , []);
     }
 
     if (!Array.isArray(codeArray)) {

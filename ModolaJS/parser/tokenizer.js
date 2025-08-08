@@ -4,7 +4,9 @@ Modola.tokenizeScript = (script) => {
     let line = 1;
     let column = 0;
 
-    const KEYWORDS = ['global', 'local', 'dev', 'const', 'type', 'class', 'enum', 'alias', 'public', 'private', 'return', 'import'];
+    const KEYWORDS = ['global', 'local', 'dev', 'const', 'type', 'class', 'enum', 'alias'
+        , 'public', 'private', 'return', 'import', 'operator', '=>'];
+
     const MULTICHAR_OPERATORS = Object.keys(Modola.keywords.operators);
     const SINGLECHAR_OPERATORS = "=+-*/:;{}()[],.";
 
@@ -14,6 +16,70 @@ Modola.tokenizeScript = (script) => {
     const isWhitespace = (char) => /\s/.test(char);
 
     while (current < script.length) {
+        /*--- [Modola Tokenizer] unsafe block handling ---*/
+        if (script.slice(current, current + 6) === 'unsafe' && script[current + 6] && /\s|\{/.test(script[current + 6])) {
+            let startLine = line;
+            let startColumn = column;
+
+            current += 6;
+            column += 6;
+
+            while (isWhitespace(script[current])) {
+                if (script[current] === '\n') {
+                    line++;
+                    column = 0;
+                } else {
+                    column++;
+                }
+                current++;
+            }
+
+            if (script[current] !== '{') {
+                throw new Error(`Expected '{' after 'unsafe' at line ${line}`);
+            }
+
+            current++; // skip '{'
+            column++;
+
+            let rawCode = '';
+            let braceCount = 1;
+
+            while (current < script.length && braceCount > 0) {
+                let ch = script[current];
+
+                if (ch === '{') {
+                    braceCount++;
+                } else if (ch === '}') {
+                    braceCount--;
+                    if (braceCount === 0) {
+                        current++; // skip final '}'
+                        column++;
+                        break;
+                    }
+                }
+
+                if (ch === '\n') {
+                    line++;
+                    column = 0;
+                } else {
+                    column++;
+                }
+
+                if (braceCount > 0) {
+                    rawCode += ch;
+                    current++;
+                }
+            }
+
+            tokens.push({
+                type: 'unsafeBlock',
+                value: rawCode.trim(),
+                position: { line: startLine, column: startColumn }
+            });
+
+            continue;
+        }
+
         let char = script[current];
         column++;
 
@@ -54,7 +120,9 @@ Modola.tokenizeScript = (script) => {
                 '/': 'slash',
                 '=': 'assign',
                 ':': 'colon',
-                '&': 'ampersand'
+                '&': 'ampersand',
+                '>': 'bigger',
+                '<': 'less',
             };
             tokens.push({ type: typeMap[char] || 'symbol', value: char, position: { line, column } });
             current++;
@@ -62,12 +130,12 @@ Modola.tokenizeScript = (script) => {
         }
 
         /*---[Modola Tokenizer] string tokens ---*/
-        if (char === '"') {
+        if (char === '"' || char === "'") {
             let value = '"';
             current++;
             char = script[current];
             column++;
-            while (char !== '"' && current < script.length) {
+            while (char !== '"' || char === "'" && current < script.length) {
                 if (char === '\n') {
                     throw new Error(`Unterminated string on line ${line}`);
                 }
@@ -111,13 +179,21 @@ Modola.tokenizeScript = (script) => {
         /*---[Modola Tokenizer] identifiers and keywords ---*/
         if (isAlpha(char)) {
             let value = '';
+
             while (isAlphaNumeric(char)) {
                 value += char;
                 char = script[++current];
                 column++;
             }
 
-            const type = KEYWORDS.includes(value) ? 'keyword' : 'identifier';
+            let type = null;
+            if (KEYWORDS.includes(value))
+                type = 'keyword';
+            else if (value === "true" || value === "false")
+                type = 'boolean';
+            else
+                type = 'identifier';
+
             tokens.push({ type, value, position: { line, column } });
             continue;
         }
